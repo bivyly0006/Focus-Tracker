@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
+  <meta name="theme-color" content="#F0B020">
+  <meta name="description" content="A focus and task tracker built for ADHD brains.">
+  <title>Focus Tracker</title>
+  <link rel="manifest" href="manifest.json">
+  <link rel="icon" href="icons/icon-192.png">
+  <link rel="apple-touch-icon" href="icons/icon-192.png">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div id="app">
+
+    <header class="topbar">
+      <h1>Focus Tracker</h1>
+      <div id="connection-status" class="status-pill status-online">
+        <span class="dot"></span><span id="status-text">Online</span>
+      </div>
+    </header>
+
+    <nav class="tabs" role="tablist">
+      <button class="tab active" data-tab="today" role="tab" aria-selected="true">Today</button>
+      <button class="tab" data-tab="checkin" role="tab" aria-selected="false">Check-in</button>
+      <button class="tab" data-tab="insights" role="tab" aria-selected="false">Insights</button>
+    </nav>
+
+    <main>
+
+      <!-- TODAY TAB -->
+      <section id="tab-today" class="tab-panel active">
+
+        <div class="card timer-card">
+          <div class="timer-display" id="timer-display">25:00</div>
+          <div class="timer-controls">
+            <button id="timer-start" class="btn btn-primary">Start focus sprint</button>
+            <button id="timer-reset" class="btn btn-ghost">Reset</button>
+          </div>
+          <p class="timer-label" id="timer-mode-label">25 min focus</p>
+        </div>
+
+        <div class="card">
+          <div class="card-header">
+            <h2>Quick capture</h2>
+          </div>
+          <form id="capture-form" class="capture-form">
+            <input type="text" id="capture-input" placeholder="Type a messy thought or task..." autocomplete="off">
+            <button type="submit" class="btn btn-primary">Add</button>
+          </form>
+          <button id="ai-breakdown-btn" class="btn btn-ai" type="button">
+            Break this into steps with AI
+          </button>
+          <p class="hint" id="ai-hint"></p>
+        </div>
+
+        <div class="card">
+          <div class="card-header">
+            <h2>Today's tasks</h2>
+            <span class="badge" id="task-progress">0 of 0</span>
+          </div>
+          <ul id="task-list" class="task-list"></ul>
+          <p class="empty-state" id="task-empty">Nothing added yet. Start with one small thing.</p>
+        </div>
+
+      </section>
+
+      <!-- CHECK-IN TAB -->
+      <section id="tab-checkin" class="tab-panel">
+
+        <div class="card">
+          <h2>Mood &amp; energy</h2>
+          <div class="scale-row" id="mood-scale">
+            <button class="scale-btn" data-value="1">😞</button>
+            <button class="scale-btn" data-value="2">😕</button>
+            <button class="scale-btn" data-value="3">😐</button>
+            <button class="scale-btn" data-value="4">🙂</button>
+            <button class="scale-btn" data-value="5">😄</button>
+          </div>
+        </div>
+
+        <div class="card">
+          <h2>Sleep last night</h2>
+          <div class="field-row">
+            <label for="sleep-hours">Hours slept</label>
+            <input type="number" id="sleep-hours" min="0" max="14" step="0.5" placeholder="7.5">
+          </div>
+        </div>
+
+        <div class="card">
+          <h2>Cycle tracking</h2>
+          <div class="field-row">
+            <label for="cycle-start">Last period start date</label>
+            <input type="date" id="cycle-start">
+          </div>
+          <p class="hint" id="cycle-phase-display"></p>
+        </div>
+
+        <button id="save-checkin" class="btn btn-primary btn-block">Save today's check-in</button>
+        <p class="hint" id="checkin-saved-msg"></p>
+
+      </section>
+
+      <!-- INSIGHTS TAB -->
+      <section id="tab-insights" class="tab-panel">
+
+        <div class="card">
+          <div class="card-header">
+            <h2>This week</h2>
+          </div>
+          <div class="stat-grid">
+            <div class="stat">
+              <span class="stat-value" id="stat-completion">0%</span>
+              <span class="stat-label">Tasks completed</span>
+            </div>
+            <div class="stat">
+              <span class="stat-value" id="stat-streak">0</span>
+              <span class="stat-label">Day streak</span>
+            </div>
+            <div class="stat">
+              <span class="stat-value" id="stat-sleep">–</span>
+              <span class="stat-label">Avg sleep</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="card">
+          <div class="card-header">
+            <h2>AI weekly summary</h2>
+          </div>
+          <button id="ai-summary-btn" class="btn btn-ai btn-block" type="button">Generate summary</button>
+          <div id="ai-summary-output" class="ai-output"></div>
+        </div>
+
+        <div class="card">
+          <div class="card-header">
+            <h2>History</h2>
+          </div>
+          <ul id="history-list" class="history-list"></ul>
+        </div>
+
+      </section>
+
+    </main>
+
+  </div>
+
+  <script src="app.js"></script>
+</body>
+</html>
